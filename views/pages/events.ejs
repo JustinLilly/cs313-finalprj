@@ -19,7 +19,7 @@
 <script>
     $.get( "/api/event", function ( data ) {
         for (var i = 0; i < data.length; i++) {
-           var event = $('.event').clone();
+           var event = $('.event').first().clone();
            event.find('.id').text(data[i].event_id)
            event.find('.title').text(data[i].event_name)
            event.find('.date').text(data[i].event_date)

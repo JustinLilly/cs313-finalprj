@@ -18,10 +18,8 @@
 
 <script>
     $.get( "/api/user", function ( data ) {
-        console.log(data.length)
         for (var i = 0; i < data.length; i++) {
-            console.log(i)
-            var user = $('.user').clone();
+            var user = $('.user').first().clone();
             user.find('.id').text(data[i].user_id)
             user.find('.firstname').text(data[i].first_name)
             user.find('.lastname').text(data[i].last_name)
