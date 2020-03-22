@@ -20,7 +20,11 @@
     $.get( "/api/event", function ( data ) {
         $( ".results" ).html( data );
         for (var i = 0; i < data.length; i++) {
-            console.log(data[i]);
+           var event = $('.event').clone();
+           event.find('.id').text(data[i].event_id)
+           event.find('.title').text(data[i].event_name)
+           event.find('.date').text(data[i].event_date)
+           $('.results').append(event);
         }
     });
 </script>
