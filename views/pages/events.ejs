@@ -8,11 +8,20 @@
   
   <% include ../partials/nav.ejs %>
 
-    <div class="result"></div>
+    <div class="results">
+        <div class="event">
+            <div class="id">ID</div>
+            <div class="title">Title</div>
+            <div class="date">Date</div>
+        </div>
+    </div>
 
 <script>
     $.get( "/api/event", function ( data ) {
-        $( ".result" ).html( data );
+        $( ".results" ).html( data );
+        for (var i = 0; i < data.length; i++) {
+            console.log(data[i]);
+        }
     });
 </script>
 </body>
