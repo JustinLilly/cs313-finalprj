@@ -33,6 +33,25 @@ express()
         res.status(200).json(result.rows)
     }); 
   })
+  .get('/users', (req, res) => res.render('pages/users'))
+  .get('/api/user', (req, res) => {
+
+
+    var sql = "SELECT * FROM fp_user";
+  
+    pool.query(sql, function(err, result) {
+        // If an error occurred...
+        if (err) {
+            console.log("Error in query: ")
+            console.log(err);
+        }
+  
+        // Log this to the console for debugging purposes.
+        console.log("Back from DB with result:");
+        console.log(result.rows);
+        res.status(200).json(result.rows)
+    }); 
+  })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
