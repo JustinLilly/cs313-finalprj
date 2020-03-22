@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+  
+  <% include ../partials/nav.ejs %>
+
+    <div class="result"></div>
+
+<script>
+    $.get( "/api/event", function ( data ) {
+        $( ".result" ).html( data );
+    });
+</script>
+</body>
+</html>
