@@ -1,8 +1,13 @@
 .results {
     margin: auto;
+    width: 70%;
+}
+.results div:first-of-type {
+    font-family: Garamond;
+    font-size: 18px;
 }
 
-.user, .events {
+.user, .event {
     display: flex;
     justify-content: space-between;
 }
