@@ -16,6 +16,8 @@ express()
   const connectionString = process.env.DATABASE_URL;
 
   var sql = "SELECT * FROM fp_user";
+  const pool = new Pool({connectionString: connectionString});
+
 
   pool.query(sql, function(err, result) {
       // If an error occurred...
