@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+  
+  <% include ../partials/nav.ejs %>
+
+    <div class="results">
+        <div class="user">
+            <div class="id">ID</div>
+            <div class="firstname">First Name</div>
+            <div class="lastname">Last Name</div>
+        </div>
+    </div>
+
+<script>
+    $.get( "/api/user", function ( data ) {
+        for (var i = 0; i < data.length; i++) {
+           var user = $('.user').clone();
+           user.find('.id').text(data[i].user_id)
+           user.find('.firstname').text(data[i].first_name)
+           user.find('.lastname').text(data[i].last_name)
+           $('.results').append(user);
+        }
+    });
+</script>
+</body>
+</html>
