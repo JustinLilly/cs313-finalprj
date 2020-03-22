@@ -16,10 +16,7 @@ express()
   .get('/', (req, res) => res.render('pages/index'))
   .get('/events', (req, res) => res.render('pages/events'))
   .get('/api/event', (req, res) => {
-
-
     var sql = "SELECT * FROM fp_event";
-  
     pool.query(sql, function(err, result) {
         // If an error occurred...
         if (err) {

@@ -1,0 +1,8 @@
+.results {
+    margin: auto;
+}
+
+.user, .events {
+    display: flex;
+    justify-content: space-between;
+}
