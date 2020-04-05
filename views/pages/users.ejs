@@ -5,10 +5,10 @@
 </head>
 
 <body>
-  
   <% include ../partials/nav.ejs %>
 <main>
   <h2>Users</h2>
+  <!-- Display Form -->
     <div class="results">
         <div class="user">
             <div class="firstname rowhead">First Name</div>
@@ -17,18 +17,26 @@
             <div class="delete"></div>
         </div>
     </div>
-
+    <br><br>
+    <!-- Add Form -->
     <div class="insert-form">
         <h3>Add new user</h3>
         <form action="" method="POST">
-            <label for="First-name">First name: </label>
-            <input type="text" name="fist-name" id="first-name">
-            <label for="Last-name">Last name: </label>
-            <input type="text" name="last-name" id="last-name">
+            <div class="form-row">
+                <div class='col'>
+                    <label for="First-name">First name: </label>
+                    <input type="text" name="fist-name" id="first-name" placeholder="First Name">
+                </div>
+                <div class="col">
+                    <label for="Last-name">Last name:  </label>
+                    <input type="text" name="last-name" id="last-name" placeholder="Last Name">
+                </div>
+            </div>
             <button type="button" id="insert-submit">Submit</button>
         </form>
     </div>
 
+    <!-- Edit Form -->
     <div class="modal" tabindex="-1" role="dialog" id="modal-edit">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -99,10 +107,10 @@
         var userId = button.data('id') 
         var modal = $(this)
         var userRow = $('#user_' + userId)
-        var titleVal = userRow.find('.firstname').text()
-        var dateVal = userRow.find('.lastname').text()
-        modal.find('#modal-user-name').val(titleVal)
-        modal.find('#modal-user-date').val(new Date(dateVal))
+        var firstVal = userRow.find('.firstname').text()
+        var lastVal = userRow.find('.lastname').text()
+        modal.find('#modal-first-name').val(firstVal)
+        modal.find('#modal-last-name').val(lastVal)
         modal.find('#modal-save-changes').attr('data-userId', userId)
         modal.find('#modal-save-changes').attr('onClick', `editUser(${userId})`)
     })
@@ -110,7 +118,7 @@
     $.get( "/api/user", function ( data ) {
         for (var i = 0; i < data.length; i++) {
             var user = $('.user').first().clone();
-            user.find('.id').text(data[i].user_id)
+            user.attr('id', 'user_' + data[i].user_id)
             user.find('.firstname').text(data[i].first_name)
             user.find('.lastname').text(data[i].last_name)
             user.find('.edit').append(`<button type="button" data-toggle="modal" data-target="#modal-edit" data-id="${data[i].user_id}">Edit</button>`)

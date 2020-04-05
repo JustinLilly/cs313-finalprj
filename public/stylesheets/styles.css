@@ -5,18 +5,24 @@ main {
 }
 .results {
     margin: auto;
-    width: 33%;
+    /* width: 33%; */
     font-size: 18px;
 }
 .rowhead {
-
+    font-size: 24px;
 }
 
 .user, .event {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
+}
+.firstname, .lastname, .title, .date {
+    /* padding: 0 15px 0 15px; */
 }
 
-.insert-form {
-
+.insert-form button{
+    margin-top: 5px;
+}
+#menu{
+    font-size: 32px;
 }

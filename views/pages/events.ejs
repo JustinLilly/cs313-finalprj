@@ -5,24 +5,31 @@
 </head>
 
 <body>
-  
-  <% include ../partials/nav.ejs %>
 
+  <% include ../partials/nav.ejs %>
+<main>
   <h2>Events</h2>
     <div class="results">
         <div class="event">
-            <div class="title">Title</div>
-            <div class="date">Date</div>
+            <div class="title rowhead">Title</div>
+            <div class="date rowhead">Date</div>
             <div class="edit"></div>
             <div class="delete"></div>
         </div>
     </div>
     <div class="insert-form">
+        <h3>Add Event</h3>
         <form action="" method="POST">
-            <label for="event-name">Event name: </label>
-            <input type="text" name="event-name" id="event-name">
-            <label for="event-date">Event date: </label>
-            <input type="date" name="event-date" id="event-date">
+            <div class="form-row">
+                <div class="col">
+                    <label for="event-name">Event name: </label>
+                    <input type="text" name="event-name" id="event-name">
+                </div>
+                <div class="col">
+                    <label for="event-date">Event date: </label>
+                    <input type="date" name="event-date" id="event-date">
+                </div>
+            </div>
             <button type="button" id="insert-submit">Submit</button>
         </form>
     </div>
@@ -51,7 +58,7 @@
           </div>
         </div>
       </div>
-
+</main>
 <script>
     $('#insert-submit').click(function(){
         console.log('woop peenie');
@@ -77,12 +84,7 @@
             editEventDate: $('#modal-event-date').val()
         }
         $.post('/api/event/edit', data, function(){
-
-            
-
             location.reload(); 
-    
-            console.log('poop weenie')
         });
     }
     function deleteEvent(id) { 
