@@ -11,19 +11,114 @@
   <h2>Events</h2>
     <div class="results">
         <div class="event">
-            <div class="id">ID</div>
             <div class="title">Title</div>
             <div class="date">Date</div>
+            <div class="edit"></div>
+            <div class="delete"></div>
         </div>
     </div>
+    <div class="insert-form">
+        <form action="" method="POST">
+            <label for="event-name">Event name: </label>
+            <input type="text" name="event-name" id="event-name">
+            <label for="event-date">Event date: </label>
+            <input type="date" name="event-date" id="event-date">
+            <button type="button" id="insert-submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="modal-edit">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Edit Event</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST">
+                    <label for="modal-event-name">Event name: </label>
+                    <input type="text" name="modal-event-name" id="modal-event-name">
+                    <label for="modal-event-date">Event date: </label>
+                    <input type="date" name="modal-event-date" id="modal-event-date">
+                </form>            
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="modal-save-changes" data-eventId="">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 <script>
+    $('#insert-submit').click(function(){
+        console.log('woop peenie');
+
+        var data = {
+            eventName: $('#event-name').val(),
+            eventDate: $('#event-date').val()
+        } 
+        $.post('/api/event/add', data, function(){
+            location.reload(); 
+            console.log('peep woonie')
+        });
+        console.log(data);
+    });
+
+
+    function editEvent(id) { 
+        console.log('we at editEvent')
+        console.log(id)
+        var data = {
+            editEventId: id,
+            editEventName: $('#modal-event-name').val(),
+            editEventDate: $('#modal-event-date').val()
+        }
+        $.post('/api/event/edit', data, function(){
+
+            
+
+            location.reload(); 
+    
+            console.log('poop weenie')
+        });
+    }
+    function deleteEvent(id) { 
+        $.ajax({
+            url: '/api/event/delete', 
+            type: 'DELETE', 
+            data: {eventId: id}, 
+            success: function(){
+                location.reload(); 
+                console.log('puup weenie');
+        
+            }
+        });
+    }
+
+    $('#modal-edit').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var eventId = button.data('id') 
+        var modal = $(this)
+        var eventRow = $('#event_' + eventId)
+        var titleVal = eventRow.find('.title').text()
+        var dateVal = eventRow.find('.date').text()
+        modal.find('#modal-event-name').val(titleVal)
+        modal.find('#modal-event-date').val(new Date(dateVal))
+        modal.find('#modal-save-changes').attr('data-eventId', eventId)
+        modal.find('#modal-save-changes').attr('onClick', `editEvent(${eventId})`)
+    })
+
     $.get( "/api/event", function ( data ) {
         for (var i = 0; i < data.length; i++) {
            var event = $('.event').first().clone();
-           event.find('.id').text(data[i].event_id)
+           event.attr('id', 'event_' + data[i].event_id)
            event.find('.title').text(data[i].event_name)
            event.find('.date').text(data[i].event_date)
+           event.find('.edit').append(`<button type="button" data-toggle="modal" data-target="#modal-edit" data-id="${data[i].event_id}">Edit</button>`)
+           event.find('.delete').append(`<button type="button" onclick="deleteEvent(${data[i].event_id})">Delete</button>`)
            $('.results').append(event);
         }
     });

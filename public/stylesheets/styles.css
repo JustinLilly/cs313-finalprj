@@ -1,13 +1,22 @@
+main {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: auto;
+    width: 50%;
+}
 .results {
     margin: auto;
     width: 33%;
-}
-.results div:first-of-type {
-    font-family: Garamond;
     font-size: 18px;
+}
+.rowhead {
+
 }
 
 .user, .event {
     display: flex;
     justify-content: space-between;
+}
+
+.insert-form {
+
 }
